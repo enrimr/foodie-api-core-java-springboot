@@ -11,15 +11,22 @@ plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
     id 'war'
+    id 'com.google.cloud.tools.jib' version '0.9.11'
+}
+
+group = 'enrimr'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+jib {
+    to {
+        image = "${project.group}/${project.name}:${project.version}"
+    }
 }
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.palantir.docker'
 
-
-group = 'enrimr'
-version = '0.0.3-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
@@ -49,3 +56,4 @@ docker {
     buildArgs(['DEPENDENCY': "dependency",
                'MAIN_CLASS': "es.coding.hangryapicore.HangryApiCoreApplication"])
 }
+
