@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.22.1')
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id 'java'
@@ -5,15 +14,12 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.palantir.docker'
 
-group = 'es.coding'
-version = '0.0.1-SNAPSHOT'
+
+group = 'enrimr'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '1.8'
-
-bootJar {
-    baseName = 'gs-spring-boot-docker'
-    version =  '0.1.0'
-}
 
 repositories {
     mavenCentral()
@@ -27,4 +33,19 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+
+task unpack(type: Copy) {
+    dependsOn bootJar
+    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    into("build/dependency")
+}
+
+docker {
+    name "${project.group}/${project.name}:${project.version}"
+    //tag "${project.version}", "${project.group}/${project.name}:${project.version}"
+    dockerfile file('Dockerfile')
+    copySpec.from(tasks.unpack.outputs).into("dependency")
+    buildArgs(['DEPENDENCY': "dependency",
+               'MAIN_CLASS': "es.coding.hangryapicore.HangryApiCoreApplication"])
 }
