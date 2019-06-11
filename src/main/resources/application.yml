@@ -1,0 +1,13 @@
+docker:
+  image:
+    prefix: mlearningregistry.azurecr.io
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: hangry
+
+server:
+  port: 8080

@@ -1,22 +1,22 @@
-package es.coding.hangryapicore.Ingredient;
+package es.coding.hangryapicore.model;
 
 public class Ingredient {
 
-    private final long id;
+    private final Long id;
     private final String name;
     private final int type;
     private final int amount;
     private final int unit;
 
-    public Ingredient(long id, String content, int type, int amount, int unit) {
+    public Ingredient(Long id, String name, int type, int amount, int unit) {
         this.id = id;
-        this.name = content;
+        this.name = name;
         this.type = type;
         this.amount = amount;
         this.unit = unit;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -35,12 +35,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'mysql:mysql-connector-java'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
-    compileOnly 'org.springframework.data:spring-data-mongodb:1.2.0.RELEASE'
+    compile 'org.springframework.data:spring-data-mongodb:2.1.0.RELEASE'
 }
 
 task unpack(type: Copy) {

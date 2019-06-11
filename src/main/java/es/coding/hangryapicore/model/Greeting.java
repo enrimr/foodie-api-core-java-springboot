@@ -1,4 +1,4 @@
-package es.coding.hangryapicore.Greeting;
+package es.coding.hangryapicore.model;
 
 public class Greeting {
 
